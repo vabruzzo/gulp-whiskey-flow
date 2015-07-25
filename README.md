@@ -1,2 +1,2 @@
 # gulp-whiskey-flow
-Gulp-sass-bourbon-neat boilerplate w/ browsersync
+gulp-sass-bourbon-neat boilerplate w/ browsersync
