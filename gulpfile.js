@@ -1,34 +1,41 @@
 var gulp = require('gulp'),
-    browserSync = require('browser-sync'),
+    browsersync = require('browser-sync'),
     concat = require('gulp-concat'),
-    minifyCss = require('gulp-minify-css'),
+    jade = require('gulp-jade'),
     sass = require('gulp-sass');
 
 var paths = {
-    scss: 'src/scss/**/*.scss'
+    jade: './src/views/*.jade',
+    scss: './src/scss/**/*.scss'
 };
 
 gulp.task('browser-sync', function() {
-    var files = [
-        'dist/css/main.css',
-        'dist/*.html'
-    ];
-    browserSync.init(files, {
-        proxy: "http://localhost/~vga/gulp-whiskey-flow/dist/",
+    browsersync.init({
+        proxy: 'http://localhost/~vga/gulp-whiskey-flow/dist/',
         notify: false
     });
+});
+
+gulp.task('views', function() {
+    return gulp.src(paths.jade)
+        .pipe(jade({
+            pretty: true
+        }))
+        .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('sass', function () {
     return gulp.src(paths.scss)
         .pipe(sass({
-            includePaths: require('node-neat').includePaths
+            includePaths: require('node-neat').includePaths,
+            // outputStyle: 'compressed'
         }))
-        .pipe(minifyCss({compatability:'ie8'}))
-        .pipe(gulp.dest('dist/css/'))
-        .pipe(browserSync.reload({stream:true}));
+        .pipe(gulp.dest('./dist/css/'));
 });
 
-gulp.task('default', ['sass', 'browser-sync'], function () {
-    gulp.watch("src/scss/**/*.scss", ['sass']);
+gulp.task('default', ['views', 'sass', 'browser-sync'], function () {
+    gulp.watch('./src/views/*.jade', ['views']);
+    gulp.watch('./src/scss/**/*.scss', ['sass']);
+    gulp.watch('./dist/*.html', browsersync.reload);
+    gulp.watch('./dist/css/*.css', browsersync.reload);
 });
