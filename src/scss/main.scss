@@ -5,3 +5,8 @@
 @import "neat";
 
 @import "global";
+
+div.container {
+    @include outer-container;
+    background-color: $medium-gray
+}
