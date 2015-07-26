@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     browsersync = require('browser-sync'),
+    changed = require('gulp-changed'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
     jade = require('gulp-jade'),
@@ -8,7 +9,7 @@ var gulp = require('gulp'),
 
 var paths = {
     img: './src/img/*',
-    jade: './src/views/*.jade',
+    jade: './src/views/**/*.jade',
     scss: './src/scss/**/*.scss',
     js: './src/js/**/*.js',
     jsEntry: './src/js/entry.js'
@@ -23,6 +24,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('images', function () {
     return gulp.src(paths.img)
+        .pipe(changed('./dist/img/'))
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
@@ -39,7 +41,7 @@ gulp.task('views', function() {
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('sass', function () {
+gulp.task('styles', function () {
     return gulp.src(paths.scss)
         .pipe(sass({
             includePaths: require('node-neat').includePaths,
@@ -54,10 +56,10 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('./dist/js/'));
 });
 
-gulp.task('default', ['images', 'views', 'sass', 'scripts', 'browser-sync'], function () {
+gulp.task('default', ['images', 'views', 'styles', 'scripts', 'browser-sync'], function () {
     gulp.watch(paths.img, ['images']);
     gulp.watch(paths.jade, ['views']);
-    gulp.watch(paths.scss, ['sass']);
+    gulp.watch(paths.scss, ['styles']);
     gulp.watch(paths.js, ['scripts']);
     gulp.watch('./dist/img/*', browsersync.reload);
     gulp.watch('./dist/*.html', browsersync.reload);
