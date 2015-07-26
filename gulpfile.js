@@ -10,7 +10,8 @@ var paths = {
     img: './src/img/*',
     jade: './src/views/*.jade',
     scss: './src/scss/**/*.scss',
-    js: './src/js/entry.js'
+    js: './src/js/**/*.js',
+    jsEntry: './src/js/entry.js'
 };
 
 gulp.task('browser-sync', function() {
@@ -48,7 +49,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src(paths.js)
+    return gulp.src(paths.jsEntry)
         .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('./dist/js/'));
 });
