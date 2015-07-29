@@ -6,7 +6,12 @@
 
 @import "global";
 
-div.container {
+@import "refills";
+
+.container{
     @include outer-container;
-    background-color: $medium-gray
+}
+
+img.wf-header{
+    @include margin(auto 0); 
 }
