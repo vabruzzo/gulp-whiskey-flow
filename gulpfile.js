@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     pngquant = require('imagemin-pngquant'),
     jade = require('gulp-jade'),
     sass = require('gulp-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
     webpack = require('webpack-stream');
 
 var paths = {
@@ -15,10 +16,17 @@ var paths = {
     jsEntry: './src/js/entry.js'
 };
 
+var dists = {
+    img: './dist/img/*',
+    html: './dist/*.html',
+    css: './dist/css/*.css',
+    js: './dist/js/*.js'
+};
+
 gulp.task('browser-sync', function() {
     browsersync.init({
         proxy: 'http://localhost/~vga/gulp-whiskey-flow/dist/',
-        notify: false
+        notify: true
     });
 });
 
@@ -36,7 +44,7 @@ gulp.task('images', function () {
 gulp.task('views', function() {
     return gulp.src(paths.jade)
         .pipe(jade({
-            pretty: true
+            pretty: '\t'
         }))
         .pipe(gulp.dest('./dist/'));
 });
@@ -46,6 +54,10 @@ gulp.task('styles', function () {
         .pipe(sass({
             includePaths: require('node-neat').includePaths,
             // outputStyle: 'compressed'
+        }))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
         }))
         .pipe(gulp.dest('./dist/css/'));
 });
@@ -61,8 +73,8 @@ gulp.task('default', ['images', 'views', 'styles', 'scripts', 'browser-sync'], f
     gulp.watch(paths.jade, ['views']);
     gulp.watch(paths.scss, ['styles']);
     gulp.watch(paths.js, ['scripts']);
-    gulp.watch('./dist/img/*', browsersync.reload);
-    gulp.watch('./dist/*.html', browsersync.reload);
-    gulp.watch('./dist/css/*.css', browsersync.reload);
-    gulp.watch('./dist/js/*.js', browsersync.reload);
+    gulp.watch(dists.img, browsersync.reload);
+    gulp.watch(dists.html, browsersync.reload);
+    gulp.watch(dists.css, browsersync.reload);
+    gulp.watch(dists.js, browsersync.reload);
 });
