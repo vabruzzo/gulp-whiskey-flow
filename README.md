@@ -1,4 +1,4 @@
 # gulp-whiskey-flow
 ![wf-header](./src/img/wf-header.png)
 
-gulp-sass-bourbon-neat boilerplate w/ browsersync
+gulp-bourbon-neat boilerplate w/ browsersync, jade template engine, and other goodies
