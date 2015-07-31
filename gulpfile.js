@@ -10,13 +10,13 @@ var gulp = require('gulp'),
 
 var paths = {
     img: './src/img/*',
-    jade: './src/views/**/*.jade',
+    jade: './src/views/*.jade',
     scss: './src/scss/**/*.scss',
     js: './src/js/**/*.js',
     jsEntry: './src/js/entry.js'
 };
 
-var dists = {
+var dist = {
     img: './dist/img/*',
     html: './dist/*.html',
     css: './dist/css/*.css',
@@ -70,11 +70,11 @@ gulp.task('scripts', function() {
 
 gulp.task('default', ['images', 'views', 'styles', 'scripts', 'browser-sync'], function () {
     gulp.watch(paths.img, ['images']);
-    gulp.watch(paths.jade, ['views']);
+    gulp.watch('./src/views/**/*.jade', ['views']);
     gulp.watch(paths.scss, ['styles']);
     gulp.watch(paths.js, ['scripts']);
-    gulp.watch(dists.img, browsersync.reload);
-    gulp.watch(dists.html, browsersync.reload);
-    gulp.watch(dists.css, browsersync.reload);
-    gulp.watch(dists.js, browsersync.reload);
+    gulp.watch(dist.img, browsersync.reload);
+    gulp.watch(dist.html, browsersync.reload);
+    gulp.watch(dist.css, browsersync.reload);
+    gulp.watch(dist.js, browsersync.reload);
 });
