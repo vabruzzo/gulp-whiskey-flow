@@ -2,6 +2,11 @@
 
 @import "bourbon";
 @import "base/base";
+
+$visual-grid: false;
+$visual-grid-color: #fee;
+$visual-grid-index: back;
+
 @import "neat";
 
 @import "global";
@@ -10,8 +15,16 @@
 
 .container{
     @include outer-container;
-}
-
-img.wf-header{
-    @include margin(auto 0); 
+    padding-top: 48px;
+    padding-bottom: 64px;
+        img.wf-header{
+            @include span-columns(7 of 12);
+            @include shift(2.5);
+        }
+        article{
+            padding-top: 64px;
+            text-align: justify;
+            @include span-columns(10 of 12);
+            @include shift(1);
+        }
 }
