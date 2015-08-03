@@ -53,7 +53,8 @@ gulp.task('styles', function () {
       browsers: ['last 2 versions'],
       cascade: false
     }))
-    .pipe(gulp.dest('./dist/css/'));
+    .pipe(gulp.dest('./dist/css/'))
+    .pipe(browsersync.stream());
 });
 
 gulp.task('scripts', function() {
@@ -74,6 +75,5 @@ gulp.task('default', ['images', 'views', 'styles', 'scripts'], function () {
   gulp.watch(paths.js, ['scripts']);
   gulp.watch(dist.img, browsersync.reload);
   gulp.watch(dist.html, browsersync.reload);
-  gulp.watch(dist.css, browsersync.reload);
   gulp.watch(dist.js, browsersync.reload);
 });
