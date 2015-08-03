@@ -3,6 +3,7 @@ var gulp = require('gulp'),
   changed = require('gulp-changed'),
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
+  htmlinject = require('bs-html-injector')
   jade = require('gulp-jade'),
   sass = require('gulp-sass'),
   autoprefixer = require('gulp-autoprefixer'),
@@ -54,7 +55,7 @@ gulp.task('styles', function () {
       cascade: false
     }))
     .pipe(gulp.dest('./dist/css/'))
-    .pipe(browsersync.stream());
+    .pipe(browsersync.reload({stream: true}));
 });
 
 gulp.task('scripts', function() {
@@ -64,6 +65,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('default', ['images', 'views', 'styles', 'scripts'], function () {
+  browsersync.use(htmlinject);
   browsersync.init({
     proxy: 'http://192.168.33.10/gulp-whiskey-flow/dist/', // scotch-box default
     notify: true
@@ -74,6 +76,6 @@ gulp.task('default', ['images', 'views', 'styles', 'scripts'], function () {
   gulp.watch(paths.scss, ['styles']);
   gulp.watch(paths.js, ['scripts']);
   gulp.watch(dist.img, browsersync.reload);
-  gulp.watch(dist.html, browsersync.reload);
+  gulp.watch(dist.html, htmlinject);
   gulp.watch(dist.js, browsersync.reload);
 });
