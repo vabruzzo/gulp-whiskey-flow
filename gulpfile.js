@@ -11,6 +11,7 @@ var gulp = require('gulp'),
 var paths = {
     img: './src/img/*',
     jade: './src/views/*.jade',
+    jadeInc: './src/views/**/*.jade',
     scss: './src/scss/**/*.scss',
     js: './src/js/**/*.js',
     jsEntry: './src/js/entry.js'
@@ -70,7 +71,7 @@ gulp.task('scripts', function() {
 
 gulp.task('default', ['images', 'views', 'styles', 'scripts', 'browser-sync'], function () {
     gulp.watch(paths.img, ['images']);
-    gulp.watch('./src/views/**/*.jade', ['views']);
+    gulp.watch(paths.jadeInc, ['views']);
     gulp.watch(paths.scss, ['styles']);
     gulp.watch(paths.js, ['scripts']);
     gulp.watch(dist.img, browsersync.reload);
