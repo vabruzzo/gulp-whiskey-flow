@@ -25,7 +25,7 @@ var dist = {
 
 gulp.task('browser-sync', function() {
     browsersync.init({
-        proxy: 'http://localhost/~vga/gulp-whiskey-flow/dist/',
+        proxy: 'http://192.168.33.10/gulp-whiskey-flow/dist/', // scotch-box default
         notify: true
     });
 });
