@@ -11,7 +11,7 @@ $visual-grid-index: back;
 
 @import "global";
 
-@import "refills";
+@import "refills/refills";
 
 .container{
     @include outer-container;
