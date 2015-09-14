@@ -18,14 +18,20 @@
 
 @import "refills/refills";
 
+.header-img{
+    padding:64px 0 0;
+    text-align:center;
+    width:100%;
+        img.wf-header{
+            width:80%;
+            max-width:800px;
+        }
+}
+
 .container{
     @include outer-container;
-    padding-top: 48px;
+    padding-top: 12px;
     padding-bottom: 64px;
-        img.wf-header{
-            @include span-columns(7 of 12);
-            @include shift(2.5);
-        }
         article{
             padding-top: 64px;
             text-align: justify;
